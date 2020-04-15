@@ -67,5 +67,11 @@ gulp.task(
     startServer
   )
 );
-gulp.task("serve", gulp.series("compile"));
-gulp.task("build", gulp.series("serve"));
+
+gulp.task(
+  "prod",
+  gulp.series(compileMarkup, compileScript, compileStyle, compileAssets)
+);
+
+gulp.task("develop", gulp.series("compile"));
+gulp.task("build", gulp.series("prod"));
