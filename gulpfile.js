@@ -47,40 +47,25 @@ function compileStyle() {
     .pipe(gulp.dest("public/css"));
 }
 
-gulp.task("compile", gulp.series(compileMarkup, compileScript, compileStyle));
+function compileAssets() {
+  return pump([gulp.src("assets/*"), gulp.dest("public/assets/")]);
+}
 
-// const compile = gulp.parallel(compileMarkup, compileScript, compileStyle);
-// compile.description = "compile all sources";
-
-// Not exposed to CLI
 function startServer() {
   browserSync.init({
-    server: "./app",
+    server: "./public",
   });
 }
 
-// gulp.task("startServer", startServer);
+gulp.task(
+  "compile",
+  gulp.series(
+    compileMarkup,
+    compileScript,
+    compileStyle,
+    compileAssets,
+    startServer
+  )
+);
 gulp.task("serve", gulp.series("compile"));
-
-// const serve = gulp.series(compile, startServer);
-// serve.description = "serve compiled source on local server at port 3000";
-
-// const watch = gulp.parallel(watchMarkup, watchScript, watchStyle);
-// watch.description = "watch for changes to all source";
-
-// const defaultTasks = gulp.parallel(serve);
 gulp.task("build", gulp.series("serve"));
-
-// export {
-//   compile,
-//   compileMarkup,
-//   compileScript,
-//   compileStyle,
-//   serve,
-//   watch,
-//   watchMarkup,
-//   watchScript,
-//   watchStyle,
-// };
-
-// export default defaultTasks;
