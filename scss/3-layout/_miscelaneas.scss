@@ -1,0 +1,312 @@
+.circle {
+  width: 1500px;
+  height: 1500px;
+  border-radius: 50%;
+  background-color: #ff5678;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 86, 86, 1) 0%,
+    rgba(255, 86, 120, 1) 100%
+  );
+  position: fixed;
+  z-index: 99;
+  -webkit-box-shadow: 10px 10px 15px 0px rgba(18, 17, 31, 0.5);
+  -moz-box-shadow: 10px 10px 15px 0px rgba(18, 17, 31, 0.5);
+  box-shadow: 10px 10px 15px 0px rgba(18, 17, 31, 0.5);
+}
+
+.circle-01 {
+  left: -1100px;
+  top: -1100px;
+}
+
+.circle-02 {
+  right: -1250px;
+  top: 20%;
+  transform: translateY(-50%);
+}
+
+.circle-03 {
+  left: -1200px;
+  bottom: -1000px;
+}
+
+.circle-04 {
+  right: -1300px;
+  bottom: -800px;
+}
+
+.gradient-cirlce-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1920px;
+  height: 1920px;
+  z-index: 98;
+}
+
+.gradient-circle {
+  position: fixed;
+  border-radius: 50%;
+  background: rgb(54, 232, 220);
+  background: linear-gradient(
+    90deg,
+    rgba(54, 232, 220, 1) 0%,
+    rgba(67, 67, 220, 1) 100%
+  );
+}
+
+.gc-01 {
+  top: 43%;
+  left: 18%;
+  width: 25px;
+  height: 25px;
+}
+
+.gc-02 {
+  top: 30%;
+  left: 75%;
+  width: 75px;
+  height: 75px;
+}
+
+.gc-03 {
+  top: 65%;
+  left: 25%;
+  width: 50px;
+  height: 50px;
+}
+
+.gc-04 {
+  top: 55%;
+  left: 75%;
+  width: 25px;
+  height: 25px;
+}
+
+.dots-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1920px;
+  height: 1920px;
+}
+
+.dot {
+  position: fixed;
+  z-index: 98;
+  background-image: radial-gradient(#2e2d3c 20%, transparent 20%);
+  background-position: 0 0;
+  background-size: 25px 25px;
+}
+
+.dots-01 {
+  left: 8%;
+  top: 31%;
+
+  height: 150px;
+  width: 200px;
+}
+
+.dots-02 {
+  left: 40%;
+  top: 32%;
+
+  height: 50px;
+  width: 75px;
+}
+
+.dots-03 {
+  left: 25%;
+  top: 50%;
+
+  height: 75px;
+  width: 75px;
+}
+
+.dots-04 {
+  left: 8%;
+  bottom: 30%;
+
+  height: 125px;
+  width: 125px;
+}
+
+.dots-05 {
+  left: 55%;
+  bottom: 28%;
+
+  height: 125px;
+  width: 175px;
+}
+
+.dots-06 {
+  left: 70%;
+  bottom: 40%;
+
+  height: 50px;
+  width: 75px;
+}
+
+.dots-07 {
+  right: 5%;
+  bottom: 55%;
+
+  transform: rotate(50deg);
+  height: 175px;
+  width: 175px;
+}
+
+.dots-08 {
+  right: 30%;
+  top: 30%;
+  height: 25px;
+  width: 155px;
+}
+
+.dots-09 {
+  right: 31%;
+  top: 31%;
+  height: 25px;
+  width: 155px;
+}
+
+.diagonal-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1920px;
+  height: 1920px;
+}
+
+.diagonal-line {
+  position: fixed;
+  background-color: #48484809;
+  z-index: 98;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(50deg);
+  height: 200vh;
+}
+
+.line-01 {
+  width: 100px;
+  left: -5%;
+}
+
+.line-02 {
+  width: 100px;
+  left: 12%;
+}
+
+.line-03 {
+  width: 300px;
+  left: 35%;
+}
+
+.line-04 {
+  width: 150px;
+  left: 70%;
+}
+
+.line-05 {
+  width: 200px;
+  left: 95%;
+}
+
+.arrows-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1920px;
+  height: 1920px;
+  z-index: 100;
+}
+
+.arrow {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+.arrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+.arrow-01 {
+  top: 55%;
+  left: 10%;
+  transform: rotate(150deg);
+}
+
+.arrow-02 {
+  top: 42%;
+  left: 92%;
+  transform: rotate(90deg);
+}
+
+.arrow-03 {
+  top: 30%;
+  left: 45%;
+  transform: rotate(150deg);
+}
+
+.arrow-04 {
+  width: 75px;
+  height: 75px;
+  top: 68%;
+  left: 65%;
+  transform: rotate(90deg);
+}
+
+.cross-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1920px;
+  height: 1920px;
+  z-index: 100;
+}
+
+.x {
+  transform: rotate(45deg);
+  position: fixed;
+  width: 25px;
+  height: 25px;
+  top: 50%;
+  left: 50%;
+}
+
+.x svg {
+  width: 100%;
+  height: 100%;
+}
+
+.x-01 {
+  top: 32%;
+  left: 26%;
+}
+
+.x-02 {
+  top: 68%;
+  left: 40%;
+}
+
+.x-03 {
+  top: 65%;
+  left: 85%;
+  width: 50px;
+  height: 50px;
+}
+
+.x-04 {
+  top: 45%;
+  left: 77%;
+}

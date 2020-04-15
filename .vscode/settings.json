@@ -1,0 +1,7 @@
+{
+  "git.ignoreLimitWarning": true,
+  "git.enableSmartCommit": true,
+  "editor.formatOnSave": true,
+  "git.confirmSync": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
