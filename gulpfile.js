@@ -48,7 +48,7 @@ function compileStyle() {
 }
 
 function compileAssets() {
-  return pump([gulp.src("assets/*"), gulp.dest("public/assets/")]);
+  return pump([gulp.src("assets/**"), gulp.dest("public/assets/")]);
 }
 
 function startServer() {
