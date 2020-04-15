@@ -3,7 +3,6 @@ const browserSync = require("browser-sync").create();
 const sass = require("gulp-sass");
 const uglify = require("gulp-uglify");
 const pump = require("pump");
-const cssnano = require("gulp-cssnano");
 const autoprefixer = require("gulp-autoprefixer");
 const htmlmin = require("gulp-htmlmin");
 const handlebars = require("gulp-compile-handlebars");
@@ -13,78 +12,7 @@ const concat = require("gulp-concat");
 const stripDebug = require("gulp-strip-debug");
 const wait = require("gulp-wait");
 
-/* LEVANTE UN SERVER Y HACE WATCH DE CAMBIOS */
-gulp.task("serve", ["sass"], function () {
-  browserSync.init({
-    server: "./app",
-  });
-
-  gulp.watch("scss/**/*.scss", ["sass"]);
-  gulp.watch("templates/**/*.hbs", ["templates"]);
-  gulp.watch("js/**/*.js", ["copiaJS"]);
-  gulp.watch("app/*.html").on("change", browserSync.reload);
-  gulp.watch("app/js/**/*.js", browserSync.reload);
-});
-
-/* COPIA LOS ARCHIVOS JS QUE EXISTAN */
-gulp.task("copiaJS", function (cb) {
-  pump([gulp.src("js/**/*.js"), gulp.dest("app/js/")], cb);
-});
-
-gulp.task("buildJS", function (cb) {
-  pump([gulp.src("js/**/*.js"), gulp.dest("public/js/")], cb);
-});
-
-/* TRANSPILA DE SASS A CSS */
-gulp.task("sass", () => {
-  return gulp
-    .src("scss/main.scss")
-    .pipe(wait(1500))
-    .pipe(sass())
-    .pipe(
-      autoprefixer({
-        browsers: ["last 2 versions"],
-        cascade: false,
-      })
-    )
-    .pipe(gulp.dest("app/css"))
-    .pipe(browserSync.stream());
-});
-
-gulp.task("buildSass", () => {
-  return gulp
-    .src("scss/main.scss")
-    .pipe(wait(1500))
-    .pipe(sass())
-    .pipe(
-      autoprefixer({
-        browsers: ["last 2 versions"],
-        cascade: false,
-      })
-    )
-    .pipe(gulp.dest("public/css"));
-  // .pipe(browserSync.stream());
-});
-
-/* TRANSPILA DE HBS A HTML */
-gulp.task("templates", function () {
-  var options = {
-    ignorePartials: false, //ignores the unknown footer2 partial in the handlebars template, defaults to false
-    batch: ["templates/partials"],
-  };
-  return gulp
-    .src("templates/*.hbs")
-    .pipe(handlebars(null, options))
-    .pipe(prettify({ indent_char: " ", indent_size: 2 }))
-    .pipe(
-      rename(function (path) {
-        path.extname = ".html";
-      })
-    )
-    .pipe(gulp.dest("app"));
-});
-
-gulp.task("buildTemplates", function () {
+function compileMarkup() {
   var options = {
     ignorePartials: false, //ignores the unknown footer2 partial in the handlebars template, defaults to false
     batch: ["templates/partials"],
@@ -99,48 +27,60 @@ gulp.task("buildTemplates", function () {
       })
     )
     .pipe(gulp.dest("public"));
-});
+}
 
-/* MINIFICA LOS HTML */
-gulp.task("minificarHTML", function () {
-  return gulp
-    .src("app/*.html")
-    .pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(gulp.dest("app/"));
-});
+function compileScript() {
+  return pump([gulp.src("js/**/*.js"), gulp.dest("public/js/")]);
+}
 
-gulp.task("minificarCSS", function () {
+function compileStyle() {
   return gulp
-    .src("app/css/*.css")
-    .pipe(cssnano())
+    .src("scss/main.scss")
+    .pipe(wait(1500))
+    .pipe(sass())
     .pipe(
-      rename(function (path) {
-        path.extname = ".min.css";
+      autoprefixer({
+        browsers: ["last 2 versions"],
+        cascade: false,
       })
     )
-    .pipe(gulp.dest("app/css/"));
-});
+    .pipe(gulp.dest("public/css"));
+}
 
-/* CONCATENA LOS ARCHIVOS JS QUE EXISTAN */
-gulp.task("concat", function () {
-  return gulp
-    .src("app/js/*.js")
-    .pipe(concat("main.min.js"))
-    .pipe(stripDebug())
-    .pipe(gulp.dest("app/js"));
-});
+gulp.task("compile", gulp.series(compileMarkup, compileScript, compileStyle));
 
-/* COMPRIME EL ARCHIVO MINIFICADO */
-gulp.task("comprimir", function (cb) {
-  pump([gulp.src("app/js/main.min.js"), uglify(), gulp.dest("app/js/")], cb);
-});
+// const compile = gulp.parallel(compileMarkup, compileScript, compileStyle);
+// compile.description = "compile all sources";
 
-gulp.task("comprimir2", function () {
-  return gulp
-    .src("app/js/main.min.js")
-    .pipe(uglify())
-    .pipe(gulp.dest("app/js"));
-});
+// Not exposed to CLI
+function startServer() {
+  browserSync.init({
+    server: "./app",
+  });
+}
 
-/* PARA BUILDEAR */
-gulp.task("build", ["buildSass", "buildTemplates", "buildJS"]);
+// gulp.task("startServer", startServer);
+gulp.task("serve", gulp.series("compile"));
+
+// const serve = gulp.series(compile, startServer);
+// serve.description = "serve compiled source on local server at port 3000";
+
+// const watch = gulp.parallel(watchMarkup, watchScript, watchStyle);
+// watch.description = "watch for changes to all source";
+
+// const defaultTasks = gulp.parallel(serve);
+gulp.task("build", gulp.series("serve"));
+
+// export {
+//   compile,
+//   compileMarkup,
+//   compileScript,
+//   compileStyle,
+//   serve,
+//   watch,
+//   watchMarkup,
+//   watchScript,
+//   watchStyle,
+// };
+
+// export default defaultTasks;
