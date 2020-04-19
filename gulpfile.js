@@ -11,6 +11,16 @@ const prettify = require("gulp-html-prettify");
 const concat = require("gulp-concat");
 const stripDebug = require("gulp-strip-debug");
 const wait = require("gulp-wait");
+const util = require("gulp-util");
+
+let config = {
+  dir: "app",
+};
+
+console.log(util.env.production ? "Develop Mode" : "Production Mode");
+if (util.env.production) {
+  config.dir = "public";
+}
 
 function compileMarkup() {
   var options = {
@@ -26,11 +36,11 @@ function compileMarkup() {
         path.extname = ".html";
       })
     )
-    .pipe(gulp.dest("public"));
+    .pipe(gulp.dest(config.dir));
 }
 
 function compileScript() {
-  return pump([gulp.src("js/**/*.js"), gulp.dest("public/js/")]);
+  return pump([gulp.src("js/**/*.js"), gulp.dest(config.dir + "/js/")]);
 }
 
 function compileStyle() {
@@ -44,27 +54,44 @@ function compileStyle() {
         cascade: false,
       })
     )
-    .pipe(gulp.dest("public/css"));
+    .pipe(gulp.dest(config.dir + "/css"))
+    .pipe(browserSync.stream());
 }
 
 function compileAssets() {
-  return pump([gulp.src("assets/**"), gulp.dest("public/assets/")]);
+  return pump([gulp.src("assets/**"), gulp.dest(config.dir + "/assets/")]);
 }
 
-function startServer() {
+function startServer(done) {
   browserSync.init({
-    server: "./public",
+    server: "./app",
+    port: 3000,
+    reloadDelay: 1000,
+    ghostMode: false,
+    notify: false,
+    open: false,
   });
+  done();
+}
+
+function watchFiles() {
+  gulp.watch("templates/**/*.hbs", compileMarkup);
+  gulp.watch("js/**/*.js", compileScript);
+  gulp.watch("scss/**/*.scss", compileStyle);
+  gulp.watch(config.dir + "/*.html").on("change", browserSync.reload);
+  gulp.watch(config.dir + "/js/**/*.js", browserSync.reload);
+  gulp.watch(config.dir + "app/css/**/*.css", browserSync.reload);
 }
 
 gulp.task(
   "compile",
   gulp.series(
+    startServer,
     compileMarkup,
     compileScript,
     compileStyle,
     compileAssets,
-    startServer
+    watchFiles
   )
 );
 
@@ -73,5 +100,5 @@ gulp.task(
   gulp.series(compileMarkup, compileScript, compileStyle, compileAssets)
 );
 
-gulp.task("develop", gulp.series("compile"));
+gulp.task("serve", gulp.series("compile"));
 gulp.task("build", gulp.series("prod"));

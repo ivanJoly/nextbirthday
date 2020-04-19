@@ -1,15 +1,15 @@
 {
-  "name": "starterkit",
+  "name": "nexbirthday",
   "version": "1.0.0",
-  "description": "Frontend workflow starter kit",
+  "description": "Application to discover your nextbirthday",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "gulp compiled",
-    "build": "gulp build"
+    "serve": "gulp serve --develop",
+    "build": "gulp build --production"
   },
   "author": "",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "devDependencies": {
     "browser-sync": "^2.26.7",
     "gulp": "^4.0.2",
@@ -24,6 +24,7 @@
     "gulp-strip-css-comments": "^2.0.0",
     "gulp-strip-debug": "^3.0.0",
     "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
     "gulp-wait": "0.0.2",
     "pump": "^3.0.0"
   },
