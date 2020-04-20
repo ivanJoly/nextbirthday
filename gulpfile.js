@@ -13,6 +13,7 @@ const stripDebug = require("gulp-strip-debug");
 const wait = require("gulp-wait");
 const babel = require("gulp-babel");
 const util = require("gulp-util");
+require("@babel/polyfill");
 
 let config = {
   dir: "app",
@@ -119,13 +120,7 @@ gulp.task(
 
 gulp.task(
   "prod",
-  gulp.series(
-    compileMarkup,
-    compileScript,
-    compileStyle,
-    compileAssets,
-    uglifyScript
-  )
+  gulp.series(compileMarkup, compileScript, compileStyle, compileAssets)
 );
 
 gulp.task("serve", gulp.series("compile"));
