@@ -11,13 +11,15 @@ const prettify = require("gulp-html-prettify");
 const concat = require("gulp-concat");
 const stripDebug = require("gulp-strip-debug");
 const wait = require("gulp-wait");
+const babel = require("gulp-babel");
 const util = require("gulp-util");
 
 let config = {
   dir: "app",
 };
 
-console.log(util.env.production ? "Develop Mode" : "Production Mode");
+console.log(util.env.production ? "Production Mode" : "Develop Mode");
+
 if (util.env.production) {
   config.dir = "public";
 }
@@ -30,17 +32,37 @@ function compileMarkup() {
   return gulp
     .src("templates/*.hbs")
     .pipe(handlebars(null, options))
-    .pipe(prettify({ indent_char: " ", indent_size: 2 }))
     .pipe(
       rename(function (path) {
         path.extname = ".html";
       })
+    )
+    .pipe(
+      util.env.production
+        ? prettify({ indent_char: " ", indent_size: 2 })
+        : util.noop()
+    )
+    .pipe(
+      util.env.production ? htmlmin({ collapseWhitespace: true }) : util.noop()
     )
     .pipe(gulp.dest(config.dir));
 }
 
 function compileScript() {
   return pump([gulp.src("js/**/*.js"), gulp.dest(config.dir + "/js/")]);
+}
+
+function uglifyScript() {
+  return gulp
+    .src(config.dir + "/js/*.js")
+    .pipe(
+      babel({
+        presets: ["env"],
+      })
+    )
+    .pipe(uglify())
+    .pipe(stripDebug())
+    .pipe(gulp.dest(config.dir + "/js"));
 }
 
 function compileStyle() {
@@ -97,7 +119,13 @@ gulp.task(
 
 gulp.task(
   "prod",
-  gulp.series(compileMarkup, compileScript, compileStyle, compileAssets)
+  gulp.series(
+    compileMarkup,
+    compileScript,
+    compileStyle,
+    compileAssets,
+    uglifyScript
+  )
 );
 
 gulp.task("serve", gulp.series("compile"));
