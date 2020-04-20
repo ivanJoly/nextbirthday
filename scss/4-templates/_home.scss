@@ -173,6 +173,7 @@ section.gif-shower.show {
 .gif-data-container .gif-data {
   max-width: 1200px;
   align-self: center;
+  padding: 0 36px;
 }
 
 .gif-data {
@@ -211,4 +212,92 @@ section.gif-shower.show {
   display: flex;
   justify-content: center;
   margin-top: 12px;
+}
+
+.up-mobile {
+  display: block;
+}
+
+.down-mobile {
+  display: none;
+}
+
+#button-picker button.down-mobile {
+  font-size: 30px;
+  width: 75px;
+}
+
+@media (max-width: 991px) {
+  .container-app {
+    max-width: 95%;
+  }
+  .gif-data-container .gif-data {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 24px;
+  }
+  .title.quote {
+    padding-right: unset;
+  }
+  .message-quote-container {
+    max-width: 600px;
+    margin-bottom: 42px;
+  }
+  .gif-data-container .spacer {
+    flex: 0 1 20%;
+  }
+}
+
+@media (max-width: 767px) {
+  .title {
+    font-size: 48px;
+    line-height: 60px;
+  }
+  .subtitle {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+
+@media (max-width: 576px) {
+  .gif-data-container .spacer {
+    flex: 0 1 5%;
+  }
+  .title.quote {
+    font-size: 36px;
+    line-height: 48px;
+  }
+  .message-quote-container {
+    margin-bottom: 0;
+  }
+  .subtitle.quote {
+    display: none;
+  }
+  .gif-actions {
+    justify-content: flex-start;
+    margin-top: 36px;
+    width: 100%;
+    padding: 0 36px;
+  }
+  .gif-actions .actions {
+    flex-direction: column;
+  }
+  .gif-actions .actions button {
+    border-radius: 0;
+    margin: 0;
+  }
+  .gif-actions .actions button:first-child {
+    margin-bottom: 18px;
+  }
+  .up-mobile {
+    display: none;
+  }
+
+  .down-mobile {
+    display: block;
+  }
+  .gif-img,
+  .img-container {
+    width: 100%;
+  }
 }

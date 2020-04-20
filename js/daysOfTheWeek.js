@@ -197,6 +197,10 @@ var daysOfTheWeekData = [
   [
     //Friday quotes
     {
+      quote: "0AFTER OFFICE <span class='day-quote'>FRIDAYS</span>!",
+      query: "after+office",
+    },
+    {
       quote: "1AFTER OFFICE <span class='day-quote'>FRIDAYS</span>!",
       query: "after+office",
     },
@@ -230,10 +234,6 @@ var daysOfTheWeekData = [
     },
     {
       quote: "9AFTER OFFICE <span class='day-quote'>FRIDAYS</span>!",
-      query: "after+office",
-    },
-    {
-      quote: "10AFTER OFFICE <span class='day-quote'>FRIDAYS</span>!",
       query: "after+office",
     },
   ],

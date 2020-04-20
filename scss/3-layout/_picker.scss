@@ -180,8 +180,9 @@ button.btn:focus {
 }
 
 .btn.action-button:disabled {
-  background-color: #f5f5ff;
-  color: #ff5678;
+  background-color: #2e2d3c;
+  color: #12111f;
+  pointer-events: none;
 }
 
 .btn.share-button {
@@ -200,4 +201,13 @@ button.btn:focus {
 
 .btn.share-button:hover svg {
   fill: #ff5678;
+}
+
+@media (max-width: 576px) {
+  .container-picker {
+    width: 100px;
+  }
+  .picker-item {
+    width: 100px;
+  }
 }

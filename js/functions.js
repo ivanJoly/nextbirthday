@@ -64,6 +64,7 @@ const getBirthdayDate = function (date) {
     day: birthdayDate.format("dddd"),
     quotes: [],
     actualQuote: 0,
+    disabledQuote: false,
     actualGifId: 0,
     dayIndex: birthdayDate.day(),
     month: birthdayDate.format("MMMM"),
@@ -112,26 +113,32 @@ const callGiphyAndQuote = function (obj) {
 
   if (!obj) {
     objData = JSON.parse(localStorage.getItem("obj-data"));
+    console.log(objData.quotes[objData.actualQuote]);
     objData.quotes.splice(objData.actualQuote, 1);
     maxLenght = objData.quotes.length;
 
-    if (maxLenght > 2) {
-      getNewResult.disabled = true;
-    } else {
-      rM = Math.floor(Math.random() * maxLenght);
-
-      objData.actualQuote = rM;
-      localStorage.setItem("obj-data", JSON.stringify(objData));
-
-      giphyCall(arr[objData.dayIndex][rM]);
+    if (objData.disabledQuote) {
+      console.log("No, you cant do that! :D");
+      return true;
     }
+
+    if (maxLenght === 1) {
+      getNewResult.disabled = true;
+      objData.disabledQuote = true;
+    }
+
+    rM = Math.floor(Math.random() * maxLenght);
+    objData.actualQuote = rM;
+    localStorage.setItem("obj-data", JSON.stringify(objData));
+
+    giphyCall(objData.quotes[rM]);
   } else {
     if (objData.state) {
       dayIndex = 7;
     } else {
       dayIndex = objData.dayIndex;
     }
-
+    getNewResult.disabled = false;
     maxLenght = 10;
     rM = Math.floor(Math.random() * maxLenght);
 

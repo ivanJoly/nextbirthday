@@ -86,19 +86,20 @@
             <div class="container-app">
                 <div class="app">
                     <div >
-                        <h1 class="title">How lucky you gonna get<br> with your next B-day?</h1> <wbr>
+                        <h1 class="title">How lucky you gonna get <span class="break-word">with your next B-day?</span></h1> <wbr>
                     </div>
                     <div class="selectable-date-container">
                         <div class="selectable-date">
                             <div id="month-picker"></div>
                             <div id="day-picker"></div>
                             <div id="button-picker">
-                                <button class="container-picker" onclick="chooseDate()">LETS FIND OUT</button>
+                                <button class="container-picker up-mobile" onclick="chooseDate()">LETS FIND OUT</button>
+                                <button class="container-picker down-mobile" onclick="chooseDate()"><ion-icon name="arrow-dropright"></ion-icon></button>
                             </div>
                         </div> 
                     </div>
                     <div >
-                        <h3 class="subtitle">Select your date of birth and see wich day of the week your<br> next birth day is going to be.</h3>
+                        <h3 class="subtitle">Select your date of birth and see wich day of the week your <span class="break-word">next birth day is going to be.</span></h3>
                     </div>
                     <div >
                         <p class="phrase">Fingers cross is a Saturday.</p>
@@ -166,14 +167,14 @@
                 <div class="spacer"></div>
                 <div class="gif-data">
                     <div class="message-quote">
-                        <div>
+                        <div class="message-quote-container">
                             <p id="message-quote" class="title quote">"It's <span class="day-quote">Monday</span>, that's sad AF mate"</p>
                             <span class="subtitle quote">Your next B-day is going to be on a Monday</span>
                         </div>
                     </div>
                     <div class="gif-img">
                         <div class="img-container">
-                            <img id="gif" src="https://media2.giphy.com/media/7zSCVb5GUMSvbzH8yK/giphy.gif?cid=1bde3ed40e506c55c16059264c3a32998cf607a46b4b5cf9&rid=giphy.gif" alt="">
+                            <img id="gif" src="https://media3.giphy.com/media/1isfKcXVAgUv7Egg8n/giphy.gif?cid=1bde3ed4a2776155611b80c8c9950e800297b8db2b7ede6e&rid=giphy.gif" alt="">
                             <p class="phrase gif">If you are to picky you can get a <a href="#" class="highlight" onclick="getNewGif()">New Gif</a></p>
                         </div>
                     </div>

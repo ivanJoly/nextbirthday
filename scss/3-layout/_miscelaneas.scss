@@ -310,3 +310,40 @@
   top: 45%;
   left: 77%;
 }
+
+@media (max-width: 1200px) {
+  .circle-01 {
+    left: -1300px;
+    top: -1000px;
+  }
+  .circle-02 {
+    right: -1400px;
+  }
+}
+
+@media (max-width: 991px) {
+  .circle-03 {
+    left: -1300px;
+  }
+  .circle-04 {
+    right: -1400px;
+  }
+}
+
+@media (max-width: 576px) {
+  .circle-01 {
+    left: -1400px;
+    top: -1000px;
+  }
+
+  .circle-02 {
+    right: -1450px;
+    top: 100%;
+  }
+  .circle-03 {
+    left: -1400px;
+  }
+  .circle-04 {
+    right: -1450px;
+  }
+}
