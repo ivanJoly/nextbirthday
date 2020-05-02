@@ -36,14 +36,14 @@
   bottom: -800px;
 }
 
-.gradient-cirlce-container {
+.gradient-circle-container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 1920px;
   height: 1920px;
-  z-index: 98;
+  z-index: 99;
 }
 
 .gradient-circle {
@@ -322,11 +322,114 @@
 }
 
 @media (max-width: 991px) {
-  .circle-03 {
-    left: -1300px;
+  .circle-01,
+  .circle-02,
+  .circle-03,
+  .circle-04,
+  .diagonal-container {
+    display: none;
   }
-  .circle-04 {
-    right: -1400px;
+  .gradient-circle-container,
+  .dots-container,
+  .arrows-container,
+  .cross-container {
+    transform: unset;
+    width: unset;
+    height: unset;
+  }
+
+  .gc-01 {
+    top: 5%;
+    left: 15%;
+  }
+
+  .gc-03 {
+    top: 80%;
+    left: 30%;
+  }
+
+  .gc-04 {
+    top: 65%;
+    left: 60%;
+  }
+
+  .dots-05,
+  .dots-06,
+  .dots-07 {
+    display: none;
+  }
+
+  .dots-01 {
+    left: 75%;
+    top: 65%;
+  }
+
+  .dots-02 {
+    left: 10%;
+    top: 15%;
+  }
+
+  .dots-03 {
+    left: 20%;
+    top: 35%;
+  }
+
+  .dots-04 {
+    left: 20%;
+    bottom: 5%;
+  }
+
+  .dots-08 {
+    right: 10%;
+    top: 50%;
+  }
+
+  .dots-09 {
+    right: 5%;
+    top: 47%;
+  }
+
+  .arrow-03 {
+    top: 5%;
+    left: 60%;
+  }
+
+  .arrow-04 {
+    top: 85%;
+    left: 55%;
+  }
+
+  .x-01 {
+    top: 15%;
+    left: 35%;
+  }
+  .x-02 {
+    top: 85%;
+    left: 5%;
+  }
+  .x-03 {
+    top: 75%;
+    left: 85%;
+  }
+}
+
+@media (max-width: 767px) {
+  .gc-02,
+  .gc-04 {
+    display: none;
+  }
+  .gc-03 {
+    top: 80%;
+    left: 75%;
+  }
+  .dots-01,
+  .dots-03 {
+    display: none;
+  }
+  .arrows-container,
+  .gradient-circle-container,
+  .cross-container {
+    display: none;
   }
 }
 
@@ -345,5 +448,23 @@
   }
   .circle-04 {
     right: -1450px;
+  }
+  #gif-screen .dots-04 {
+    left: 68%;
+    bottom: 37%;
+  }
+  #gif-screen .dots-02 {
+    left: 3%;
+    top: 25%;
+  }
+
+  #gif-screen .dots-08 {
+    right: 10%;
+    top: 50%;
+  }
+
+  #gif-screen .dots-09 {
+    right: 5%;
+    top: 47%;
   }
 }

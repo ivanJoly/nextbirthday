@@ -211,3 +211,12 @@ button.btn:focus {
     width: 100px;
   }
 }
+
+@media (max-width: 374px) {
+  .container-picker {
+    width: 75px;
+  }
+  .picker-item {
+    width: 75px;
+  }
+}

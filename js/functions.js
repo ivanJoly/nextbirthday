@@ -4,6 +4,7 @@ const gifScreen = document.getElementById("gif-screen");
 const message = document.getElementById("message-quote");
 const gif = document.getElementById("gif");
 const getNewResult = document.getElementById("getNewResult");
+const gifLoading = document.getElementById("gif-loading");
 
 const chooseDate = async function () {
   showSlider();
@@ -201,8 +202,10 @@ const getNewGif = function () {
   dataGifs.splice(randomGif, 1);
   localStorage.setItem("giphy-data", JSON.stringify(dataGifs));
   /* Spiner loading*/
+  gifLoading.classList.add("loading");
   gif.onload = function () {
     /* Remove Spiner loading*/
+    gifLoading.classList.remove("loading");
   };
   gif.src = urlGif;
 };

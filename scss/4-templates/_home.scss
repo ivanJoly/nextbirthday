@@ -56,12 +56,18 @@ section.gif-shower.show {
   transform: translateY(-100%);
 }
 
+.miscelaneas-container {
+  display: block;
+}
+
 .container-app {
   position: relative;
   z-index: 100;
   width: 1200px;
-  height: 100%;
+  height: auto;
+  min-height: 100vh;
   margin: 0 auto;
+  padding: 48px 0;
 
   display: flex;
   align-items: center;
@@ -158,27 +164,27 @@ section.gif-shower.show {
   flex-direction: column;
   position: relative;
   z-index: 101;
-  height: 100%;
-}
+  height: auto;
+  min-height: 100vh;
 
-.gif-data-container .spacer {
-  flex: 0 1 30%;
-}
-
-.gif-data-container .gif-data,
-.gif-data-container .gif-actions {
-  flex: 1 1;
+  padding: 48px 0;
 }
 
 .gif-data-container .gif-data {
   max-width: 1200px;
   align-self: center;
   padding: 0 36px;
+  flex: 1 1 70%;
+}
+
+.gif-data-container .gif-actions {
+  flex: 0 1;
 }
 
 .gif-data {
   display: flex;
   flex-direction: row;
+  margin-top: 48px;
 }
 
 .gif-data .message-quote,
@@ -187,11 +193,51 @@ section.gif-shower.show {
   align-items: center;
 }
 
-.gif-img .img-container {
+.gif-img .gif-img-container {
   max-width: 400px;
+  position: relative;
 }
 
-.gif-img .img-container img {
+.gif-img .gif-img-container .loading-screen {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-screen.loading {
+  background-color: #14132194;
+}
+
+.loading-screen .loader {
+  display: none;
+  width: 20%;
+  text-align: center;
+  vertical-align: top;
+}
+
+.loading-screen.loading .loader {
+  display: inline-block;
+}
+
+/*
+  Set the color of the icon
+*/
+.loading-screen svg path,
+.loading-screen svg rect {
+  fill: rgba(54, 232, 220, 1);
+}
+
+.gif-img .gif-img-container .img-container {
+  position: relative;
+  display: flex;
+}
+
+.gif-img .gif-img-container img {
   width: 100%;
 }
 
@@ -200,8 +246,7 @@ section.gif-shower.show {
   flex-direction: column;
   justify-content: flex-end;
   align-self: center;
-  padding-bottom: 48px;
-  margin-top: 36px;
+  margin-top: 48px;
 }
 
 .gif-actions .actions {
@@ -234,6 +279,7 @@ section.gif-shower.show {
   }
   .gif-data-container .gif-data {
     flex-direction: column;
+    justify-content: flex-end;
     align-items: center;
     margin-top: 24px;
   }
@@ -247,6 +293,15 @@ section.gif-shower.show {
   .gif-data-container .spacer {
     flex: 0 1 20%;
   }
+  section.initial,
+  section.gif-shower {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  .gif-img .gif-img-container {
+    max-width: unset;
+    width: 600px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -257,6 +312,15 @@ section.gif-shower.show {
   .subtitle {
     font-size: 18px;
     line-height: 24px;
+  }
+  .title.quote {
+    text-align: center;
+  }
+  .message-quote-container {
+    text-align: center;
+  }
+  .gif-img .gif-img-container {
+    width: 100%;
   }
 }
 
@@ -278,7 +342,7 @@ section.gif-shower.show {
     justify-content: flex-start;
     margin-top: 36px;
     width: 100%;
-    padding: 0 36px;
+    padding: 0 36px 36px 36px;
   }
   .gif-actions .actions {
     flex-direction: column;
@@ -298,7 +362,13 @@ section.gif-shower.show {
     display: block;
   }
   .gif-img,
-  .img-container {
+  .gif-img-container {
     width: 100%;
+  }
+  .gif-img .gif-img-container {
+    max-width: unset;
+  }
+  .title.quote {
+    text-align: left;
   }
 }
