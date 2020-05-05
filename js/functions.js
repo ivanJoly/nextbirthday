@@ -2,9 +2,14 @@ const initial = document.getElementById("initial");
 const slider = document.getElementById("slider");
 const gifScreen = document.getElementById("gif-screen");
 const message = document.getElementById("message-quote");
+const subtitle = document.getElementById("subtitle-quote");
 const gif = document.getElementById("gif");
 const getNewResult = document.getElementById("getNewResult");
 const gifLoading = document.getElementById("gif-loading");
+const facebook = document.getElementById("facebook");
+const twitter = document.getElementById("twitter");
+const whatsapp = document.getElementById("whatsapp");
+const clipboard = document.getElementById("clipboard");
 
 const chooseDate = async function () {
   showSlider();
@@ -65,6 +70,7 @@ const getBirthdayDate = function (date) {
     day: birthdayDate.format("dddd"),
     quotes: [],
     actualQuote: 0,
+    globalQuoteIndex: 0,
     disabledQuote: false,
     actualGifId: 0,
     dayIndex: birthdayDate.day(),
@@ -114,7 +120,6 @@ const callGiphyAndQuote = function (obj) {
 
   if (!obj) {
     objData = JSON.parse(localStorage.getItem("obj-data"));
-    console.log(objData.quotes[objData.actualQuote]);
     objData.quotes.splice(objData.actualQuote, 1);
     maxLenght = objData.quotes.length;
 
@@ -130,8 +135,12 @@ const callGiphyAndQuote = function (obj) {
 
     rM = Math.floor(Math.random() * maxLenght);
     objData.actualQuote = rM;
+    objData.globalQuoteIndex = getGlobalPhraseIndex(
+      objData.quotes[rM].quote,
+      objData.dayIndex
+    );
     localStorage.setItem("obj-data", JSON.stringify(objData));
-
+    setHrefs(objData);
     giphyCall(objData.quotes[rM]);
   } else {
     if (objData.state) {
@@ -145,8 +154,9 @@ const callGiphyAndQuote = function (obj) {
 
     objData.quotes = arr[dayIndex];
     objData.actualQuote = rM;
+    objData.globalQuoteIndex = rM;
     localStorage.setItem("obj-data", JSON.stringify(objData));
-
+    setHrefs(objData);
     giphyCall(arr[dayIndex][rM]);
   }
 };
@@ -182,13 +192,17 @@ const giphyCall = function (qS) {
     localStorage.setItem("obj-data", JSON.stringify(obj));
     gifsArr.splice(randomGif, 1);
     localStorage.setItem("giphy-data", JSON.stringify(gifsArr));
-    /* Spiner loading*/
 
+    setHrefs(obj);
+    /* Spiner loading*/
+    gifLoading.classList.add("loading");
     gif.onload = function () {
       /* Remove Spiner loading*/
+      gifLoading.classList.remove("loading");
     };
     gif.src = urlGif;
     message.innerHTML = qS.quote;
+    subtitle.innerHTML = `Your next B-day is going to be on a ${obj.day}`;
   };
 
   // Send request
@@ -208,4 +222,139 @@ const getNewGif = function () {
     gifLoading.classList.remove("loading");
   };
   gif.src = urlGif;
+};
+
+const getGlobalPhraseIndex = function (quote, dayIndex) {
+  let arr = daysOfTheWeekData.slice();
+  const index = arr[dayIndex].findIndex((element) => element.quote === quote);
+  return index;
+};
+
+const getAllUrlParams = function (url) {
+  // get query string from url (optional) or window
+  let queryString = url ? url.split("?")[1] : window.location.search.slice(1);
+
+  // we'll store the parameters here
+  let obj = {};
+
+  // if query string exists
+  if (queryString) {
+    // stuff after # is not part of query string, so get rid of it
+    queryString = queryString.split("#")[0];
+
+    // split our query string into its component parts
+    let arr = queryString.split("&");
+
+    for (let i = 0; i < arr.length; i++) {
+      // separate the keys and the values
+      let a = arr[i].split("=");
+
+      // set parameter name and value (use 'true' if empty)
+      let paramName = a[0];
+      let paramValue = typeof a[1] === "undefined" ? true : a[1];
+
+      // (optional) keep case consistent
+      paramName = paramName.toLowerCase();
+      if (typeof paramValue === "string") paramValue = paramValue.toLowerCase();
+
+      // if the paramName ends with square brackets, e.g. colors[] or colors[2]
+      if (paramName.match(/\[(\d+)?\]$/)) {
+        // create key if it doesn't exist
+        let key = paramName.replace(/\[(\d+)?\]/, "");
+        if (!obj[key]) obj[key] = [];
+
+        // if it's an indexed array e.g. colors[2]
+        if (paramName.match(/\[\d+\]$/)) {
+          // get the index value and add the entry at the appropriate position
+          let index = /\[(\d+)\]/.exec(paramName)[1];
+          obj[key][index] = paramValue;
+        } else {
+          // otherwise add the value to the end of the array
+          obj[key].push(paramValue);
+        }
+      } else {
+        // we're dealing with a string
+        if (!obj[paramName]) {
+          // if it doesn't exist, create property
+          obj[paramName] = paramValue;
+        } else if (obj[paramName] && typeof obj[paramName] === "string") {
+          // if property does exist and it's a string, convert it to an array
+          obj[paramName] = [obj[paramName]];
+          obj[paramName].push(paramValue);
+        } else {
+          // otherwise add the property
+          obj[paramName].push(paramValue);
+        }
+      }
+    }
+  }
+
+  return obj;
+};
+
+const generateShareUrl = async function (obj) {
+  let arr = obj;
+  if (!obj) {
+    arr = await JSON.parse(localStorage.getItem("obj-data"));
+  }
+  return `${window.location.origin}/result.html?gifId=${obj.actualGifId}&phraseIndex=${arr.globalQuoteIndex}&dayIndex=${arr.dayIndex}&day=${obj.day}`;
+};
+
+const setHrefs = async function (obj) {
+  const url = await generateShareUrl(obj);
+  const title = "YourNextBirthday";
+  const twitterHandler = "IvJoly";
+  let facebookUrl = `http://www.facebook.com/sharer/sharer.php?u=${url}&t=${title}`;
+  let twitterUrl = `http://www.twitter.com/intent/tweet?url=${url}&via=${twitterHandler}&text=${title}`;
+  let whatsappUrl = `https://web.whatsapp.com/send?text=${url}`;
+  facebook.href = facebookUrl;
+  twitter.href = twitterUrl;
+  whatsapp.href = whatsappUrl;
+  clipboard.dataset.url = url;
+};
+
+const clipboardUrl = function () {
+  let dummyContent = clipboard.dataset.url;
+  let dummy = document.createElement("textarea");
+  document.body.appendChild(dummy);
+  dummy.value = dummyContent;
+  dummy.select();
+  document.execCommand("copy");
+  document.body.removeChild(dummy);
+};
+
+const setResultPhrase = function (params) {
+  let arr = daysOfTheWeekData.slice();
+  let quote = arr[params.dayindex][params.phraseindex].quote;
+  message.innerHTML = quote;
+  let day = params.day[0].toUpperCase() + params.day.slice(1);
+  subtitle.innerHTML = `Your next B-day is going to be on a ${day}`;
+};
+
+const getGifById = function (params) {
+  var url = "https://api.giphy.com/v1/gifs/"; //probar cambair translate por random
+  var key = "?api_key=vlUK5O6v2WQEJaHVNsWaEWsMW3TQyZxB";
+  var gifId = params.gifid;
+  var finalURL = url + gifId + key;
+
+  // Create a request variable and assign a new XMLHttpRequest object to it.
+  var request = new XMLHttpRequest();
+
+  // Open a new connection, using the GET request on the URL endpoint
+  request.open("GET", finalURL, true);
+
+  request.onload = function () {
+    let data = this.response;
+    let gifsArr = JSON.parse(data).data;
+    let urlGif = gifsArr.images.downsized_large.url;
+    /* Spiner loading*/
+    gif.onload = function () {
+      /* Remove Spiner loading*/
+      gifLoading.classList.remove("loading");
+    };
+    gif.src = urlGif;
+  };
+
+  // Send request
+  request.send();
 };
