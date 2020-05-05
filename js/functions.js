@@ -329,6 +329,7 @@ const setResultPhrase = function (params) {
   message.innerHTML = quote;
   let day = params.day[0].toUpperCase() + params.day.slice(1);
   subtitle.innerHTML = `Your next B-day is going to be on a ${day}`;
+  slider.classList.add("hide");
 };
 
 const getGifById = function (params) {

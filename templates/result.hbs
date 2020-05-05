@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:title" content="Your next birthday!" />
+    <meta property="og:image" content="./assets/square.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="You can find out when your next birthday falls in a fun way!" />
     <link rel="apple-touch-icon" sizes="57x57" href="./assets/favicon/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="./assets/favicon/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="./assets/favicon/apple-icon-72x72.png">
@@ -28,6 +32,7 @@
 </head>
 <body>
     <main>
+        <section id="slider" class="slider show"></section>
         <section id="gif-screen" class="gif-shower">
             <div class="miscelaneas-container">
                 <div class="circle circle-03"></div>
@@ -129,5 +134,18 @@
     <script src="js/daysOfTheWeek.js"></script>
     <script src="js/functions.js"></script>
     <script src="js/result.js"></script>
+    <script type="application/ld+json">
+    {
+    "@context": "https://schema.org/",
+    "@type": "WebSite",
+    "name": "NextBithday",
+    "url": "https://nextbirthday.now.sh/",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{search_term_string}",
+        "query-input": "required name=search_term_string"
+    }
+    }
+</script>
 </body>
 </html>
