@@ -43,7 +43,7 @@
   transform: translate(-50%, -50%);
   width: 1920px;
   height: 1920px;
-  z-index: 99;
+  z-index: 98;
 }
 
 .gradient-circle {
@@ -96,7 +96,7 @@
 
 .dot {
   position: fixed;
-  z-index: 98;
+  z-index: 97;
   background-image: radial-gradient(#2e2d3c 20%, transparent 20%);
   background-position: 0 0;
   background-size: 25px 25px;

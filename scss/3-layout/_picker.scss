@@ -135,7 +135,8 @@
   cursor: pointer;
 }
 
-button.btn {
+button.btn,
+a.btn {
   height: 50px;
   border-radius: 4px;
   position: relative;
@@ -159,12 +160,14 @@ button.btn {
   outline: none;
 }
 
-button.btn:hover {
+button.btn:hover,
+a.btn:hover {
   background-color: #f5f5ff;
   color: #ff5678;
 }
 
-button.btn:focus {
+button.btn:focus,
+a.btn:focus {
   outline: none;
 }
 
@@ -193,6 +196,7 @@ button.btn:focus {
   border-radius: 50%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .btn.share-button svg {

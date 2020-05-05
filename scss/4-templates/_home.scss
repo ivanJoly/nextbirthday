@@ -194,8 +194,9 @@ section.gif-shower.show {
 }
 
 .gif-img .gif-img-container {
-  max-width: 400px;
+  width: 400px;
   position: relative;
+  max-height: 600px;
 }
 
 .gif-img .gif-img-container .loading-screen {
@@ -239,6 +240,7 @@ section.gif-shower.show {
 
 .gif-img .gif-img-container img {
   width: 100%;
+  min-height: 200px;
 }
 
 .gif-actions {
@@ -279,7 +281,7 @@ section.gif-shower.show {
   }
   .gif-data-container .gif-data {
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     margin-top: 24px;
   }
