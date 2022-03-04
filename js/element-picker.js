@@ -156,17 +156,17 @@ function Picker(array, name, container, cb = null) {
   };
 
   this.toggle = function (event) {
-    if (event.toElement.classList.contains("selected")) {
-      event.toElement.parentNode.parentNode.classList.toggle("open");
+    if (event.target.classList.contains("selected")) {
+      event.target.parentNode.parentNode.classList.toggle("open");
       return null;
     }
 
-    if (!event.toElement.classList.contains("selected")) {
-      var elSelected = event.toElement.parentNode.querySelector(
+    if (!event.target.classList.contains("selected")) {
+      var elSelected = event.target.parentNode.querySelector(
         ".picker-item.selected"
       );
       var scrollSelected = elSelected.dataset.scroll;
-      var scroll = event.toElement.dataset.scroll;
+      var scroll = event.target.dataset.scroll;
 
       var valor = scroll - scrollSelected;
       if (valor == -100) {
